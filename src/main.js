@@ -1,3 +1,11 @@
+import {createSiteMenuTemplate} from "./components/site-menu.js";
+import {createSortingTemplate} from "./components/sorting.js";
+import {createFilterTemplate} from "./components/filter.js";
+import {createTaskTemplate} from "./components/task.js";
+import {createTaskEditTemplate} from "./components/task-edit.js";
+import {createLoadMoreButtonTemplate} from "./components/load-more-button.js";
+import {createBoardTemplate} from "./components/board.js";
+
 // Количество задач на странице
 const TASK_COUNT = 3;
 
