@@ -1,9 +1,13 @@
 // Разметка меню
 import {createElement} from "../utils.js";
 
-const createSiteMenuTemplate = () => {
-  return (
-    `<section class="control__btn-wrap">
+export default class SiteMenu {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<section class="control__btn-wrap">
       <input
         type="radio"
         name="control"
@@ -30,17 +34,7 @@ const createSiteMenuTemplate = () => {
       <label for="control__statistic" class="control__label"
         >STATISTICS</label
       >
-    </section>`
-  );
-};
-
-export default class SiteMenu {
-  constructor() {
-    this._element = null;
-  }
-
-  getTemplate() {
-    return createSiteMenuTemplate();
+    </section>`;
   }
 
   getElement() {
