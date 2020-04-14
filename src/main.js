@@ -1,5 +1,5 @@
 import {createSiteMenuTemplate} from "./components/site-menu.js";
-import {createSortingTemplate} from "./components/sorting.js";
+import {createSortTemplate} from "./components/sort.js";
 import {createFilterTemplate} from "./components/filter.js";
 import {createTaskTemplate} from "./components/task.js";
 import {createTaskEditTemplate} from "./components/task-edit.js";
@@ -43,7 +43,7 @@ const boardElement = siteMainElement.querySelector(`.board`);
 // Отрисовка формы
 render(taskListElement, createTaskEditTemplate(tasks[0]), `beforeend`);
 // Отрисовка сортировки
-render(boardElement, createSortingTemplate(), `afterbegin`);
+render(boardElement, createSortTemplate(), `afterbegin`);
 
 let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 // Отрисовка задач
