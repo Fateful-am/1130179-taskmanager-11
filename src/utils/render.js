@@ -22,16 +22,16 @@ export const createElement = (template) => {
 /**
  * Отрисовка элемнта в контейнере
  * @param {Element} container - Контейнер для элемента
- * @param {Element} element - Элемент для отрисовки
+ * @param {AbstractComponent} component - Компонент для отрисовки
  * @param {InsertPosition} place - Место вставки элемента в контейнер
  */
-export const render = (container, element, place) => {
+export const render = (container, component, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
+      container.prepend(component.getElement());
       break;
     case RenderPosition.BEFOREEND:
-      container.append(element);
+      container.append(component.getElement());
       break;
   }
 };
