@@ -35,3 +35,13 @@ export const render = (container, element, place) => {
       break;
   }
 };
+
+/**
+ * Заменяет один элемент на другой в родительском контейнере
+ * @param {Element} parent - Родительский контейнер
+ * @param {Element} newElement - Новый элемент
+ * @param {Element} oldElement - Старый элемент
+ */
+export const replace = (parent, newElement, oldElement) => {
+  parent.replaceChild(newElement, oldElement);
+};
