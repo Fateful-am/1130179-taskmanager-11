@@ -45,3 +45,11 @@ export const render = (container, element, place) => {
 export const replace = (parent, newElement, oldElement) => {
   parent.replaceChild(newElement, oldElement);
 };
+
+/**
+ * Удаляет элемент из разметки
+ * @param {Element} element
+ */
+export const remove = (element) => {
+  element.remove();
+};

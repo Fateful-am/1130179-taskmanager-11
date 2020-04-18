@@ -35,7 +35,7 @@ export default class AbstractComponent {
   }
 
   /**
-   * Удаляет элемент из разметки
+   * Освобождает ресурсы элемента
    */
   removeElement() {
     this._element = null;
