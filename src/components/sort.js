@@ -11,4 +11,12 @@ export default class Sort extends AbstractComponent {
       <a href="#" class="board__filter">SORT BY DATE down</a>
     </div>`;
   }
+
+  getSortType() {
+
+  }
+
+  setSortTypeChangeHandler(handler) {
+
+  }
 }
