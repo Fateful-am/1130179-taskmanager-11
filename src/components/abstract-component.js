@@ -1,6 +1,11 @@
 import {createElement} from "../utils.js";
 
+/** Абстрактный класс для компонентов */
 export default class AbstractComponent {
+  /**
+   * @abstract
+   * Конструктор класса
+   */
   constructor() {
     if (new.target === AbstractComponent) {
       throw new Error(`Can't instantiate AbstractComponent, only concrete one.`);
@@ -9,6 +14,18 @@ export default class AbstractComponent {
     this._element = null;
   }
 
+  /**
+   * @abstract
+   * Должен возыращать шаблон компонента
+   */
+  getTemplate() {
+    throw new Error(`Abstract method not implemented: getTemplate`);
+  }
+
+  /**
+   * Возвращвет элемент компонента
+   * @return {Element} - DOM-элемент
+   */
   getElement() {
     if (!this._element) {
       this._element = createElement(this.getTemplate());
@@ -17,6 +34,9 @@ export default class AbstractComponent {
     return this._element;
   }
 
+  /**
+   * Удаляет элемент из разметки
+   */
   removeElement() {
     this._element = null;
   }
