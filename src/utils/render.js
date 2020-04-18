@@ -48,8 +48,9 @@ export const replace = (parent, newElement, oldElement) => {
 
 /**
  * Удаляет элемент из разметки
- * @param {Element} element
+ * @param {AbstractComponent} component - Компонент для удаления
  */
-export const remove = (element) => {
-  element.remove();
+export const remove = (component) => {
+  component.getElement().remove();
+  component.removeElement();
 };
