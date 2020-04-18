@@ -3,7 +3,6 @@ import {createElement} from "../utils.js";
 /** Абстрактный класс для компонентов */
 export default class AbstractComponent {
   /**
-   * @abstract
    * Конструктор класса
    */
   constructor() {

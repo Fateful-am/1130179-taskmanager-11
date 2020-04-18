@@ -1,26 +1,10 @@
-// Разметка доски
-import {createElement} from "../utils.js";
+import AbstractComponent from "./abstract-component.js";
 
-export default class Board {
-  constructor() {
-    this._element = null;
-  }
-
+/** Компонент  доски объявлений*/
+export default class Board extends AbstractComponent {
   getTemplate() {
     return (
       `<section class="board container"></section>`
     );
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
