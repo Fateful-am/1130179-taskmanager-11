@@ -1,11 +1,9 @@
-// Разметка меню
-import {createElement} from "../utils.js";
+import AbstractComponent from "./abstract-component.js";
 
-export default class SiteMenu {
-  constructor() {
-    this._element = null;
-  }
-
+/** Компонент главного меню сайта
+ * @extends AbstractComponent
+ */
+export default class SiteMenu extends AbstractComponent {
   getTemplate() {
     return `<section class="control__btn-wrap">
       <input
@@ -35,17 +33,5 @@ export default class SiteMenu {
         >STATISTICS</label
       >
     </section>`;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
