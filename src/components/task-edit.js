@@ -2,6 +2,10 @@ import {COLORS, DAYS, MONTH_NAMES} from "../const.js";
 import AbstractSmartComponent from "./abstract-smart-component.js";
 import {formatTime} from "../utils/common.js";
 
+const isRepeating = (repeatingDays) => {
+  return Object.values(repeatingDays).some(Boolean);
+};
+
 /** Компонент редактирования задачи
  * @extends AbstractComponent
  */
@@ -10,6 +14,10 @@ export default class TaskEdit extends AbstractSmartComponent {
     super();
 
     this._task = task;
+    this._isDateShowing = !!task.dueDate;
+    this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
+    this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
+
     this._submitHandler = null;
 
     this._subscribeOnEvents();
@@ -62,22 +70,23 @@ export default class TaskEdit extends AbstractSmartComponent {
     const {description, dueDate, color, repeatingDays} = this._task;
 
     const isExpired = dueDate instanceof Date && dueDate < Date.now();
-    const isDateShowing = !!dueDate;
 
-    const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
-    const time = isDateShowing ? formatTime(dueDate) : ``;
+    const isBlockSaveButton = (this._isDateShowing && this._isRepeatingTask) ||
+      (this._isRepeatingTask && !isRepeating(this._activeRepeatingDays));
 
-    const isRepeatingTask = Object.values(repeatingDays).some(Boolean);
-    const repeatClass = isRepeatingTask ? `card--repeat` : ``;
+    const date = (this._isDateShowing && dueDate) ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
+    const time = (this._isDateShowing && dueDate) ? formatTime(dueDate) : ``;
+
+    const repeatClass = this._isRepeatingTask ? `card--repeat` : ``;
     const deadlineClass = isExpired ? `card--deadline` : ``;
 
     const colorsMarkup = this._createColorsMarkup(COLORS, color);
     const repeatingDaysMarkup = this._createRepeatingDaysMarkup(DAYS, repeatingDays);
 
-    const cardDateStatus = isDateShowing ? `yes` : `no`;
-    const cardRepeatStatus = isRepeatingTask ? `yes` : `no`;
+    const cardDateStatus = this._isDateShowing ? `yes` : `no`;
+    const cardRepeatStatus = this._isRepeatingTask ? `yes` : `no`;
 
-    const cardDateDeadline = isDateShowing ?
+    const cardDateDeadline = this._isDateShowing ?
       `<fieldset class="card__date-deadline">
       <label class="card__input-deadline-wrap">
         <input
@@ -91,7 +100,7 @@ export default class TaskEdit extends AbstractSmartComponent {
     </fieldset>`
       : ``;
 
-    const cardRepeatDays = isRepeatingTask ?
+    const cardRepeatDays = this._isRepeatingTask ?
       `<fieldset class="card__repeat-days">
       <div class="card__repeat-days-inner">
         ${repeatingDaysMarkup}
@@ -142,7 +151,7 @@ export default class TaskEdit extends AbstractSmartComponent {
           </div>
 
           <div class="card__status-btns">
-            <button class="card__save" type="submit">save</button>
+            <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>save</button>
             <button class="card__delete" type="button">delete</button>
           </div>
         </div>

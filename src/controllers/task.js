@@ -14,9 +14,14 @@ export default class TaskController {
   }
 
   render(task) {
-    this._taskComponent = new TaskComponent(task);
-    this._taskEditComponent = new TaskEditComponent(task);
-
+    let noRender = false;
+    if (!this._taskComponent) {
+      this._taskComponent = new TaskComponent(task);
+      this._taskEditComponent = new TaskEditComponent(task);
+    } else {
+      this._taskComponent.rerender(task);
+      noRender = true;
+    }
     this._taskComponent.setEditButtonClickHandler(() => {
       this._replaceTaskToEdit();
       document.addEventListener(`keydown`, this._onEscKeyDown);
@@ -38,8 +43,9 @@ export default class TaskController {
       evt.preventDefault();
       this._replaceEditToTask();
     });
-
-    render(this._container, this._taskComponent, RenderPosition.BEFOREEND);
+    if (!noRender) {
+      render(this._container, this._taskComponent, RenderPosition.BEFOREEND);
+    }
   }
 
   _replaceEditToTask() {

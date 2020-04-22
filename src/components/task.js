@@ -1,11 +1,11 @@
 import {MONTH_NAMES} from "../const.js";
-import AbstractComponent from "./abstract-component.js";
+import AbstractSmartComponent from "./abstract-smart-component.js";
 import {formatTime} from "../utils/common.js";
 
 /** Компонент задачи
  * @extends AbstractComponent
  */
-export default class Task extends AbstractComponent {
+export default class Task extends AbstractSmartComponent {
   constructor(task) {
     super();
 
@@ -84,4 +84,13 @@ export default class Task extends AbstractComponent {
     this.getElement().querySelector(`.card__btn--archive`)
       .addEventListener(`click`, handler);
   }
+
+  recoveryListeners() {
+  }
+
+  rerender(task) {
+    this._task = task;
+    super.rerender();
+  }
+
 }
