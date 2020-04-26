@@ -1,6 +1,5 @@
-import {MONTH_NAMES} from "../const.js";
 import AbstractSmartComponent from "./abstract-smart-component.js";
-import {formatTime} from "../utils/common.js";
+import {formatTime, formatDate} from "../utils/common.js";
 
 /** Компонент задачи
  * @extends AbstractComponent
@@ -18,7 +17,7 @@ export default class Task extends AbstractSmartComponent {
     const isExpired = dueDate instanceof Date && dueDate < Date.now();
     const isDateShowing = !!dueDate;
 
-    const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
+    const date = isDateShowing ? formatDate(dueDate) : ``;
     const time = isDateShowing ? formatTime(dueDate) : ``;
 
     const repeatClass = Object.values(repeatingDays).some(Boolean) ? `card--repeat` : ``;
