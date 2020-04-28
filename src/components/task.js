@@ -1,5 +1,6 @@
 import AbstractSmartComponent from "./abstract-smart-component.js";
 import {formatTime, formatDate} from "../utils/common.js";
+import {isOverdueDate} from "../utils/common.js";
 
 /** Компонент задачи
  * @extends AbstractComponent
@@ -14,7 +15,7 @@ export default class Task extends AbstractSmartComponent {
   getTemplate() {
     const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = this._task;
 
-    const isExpired = dueDate instanceof Date && dueDate < Date.now();
+    const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
     const isDateShowing = !!dueDate;
 
     const date = isDateShowing ? formatDate(dueDate) : ``;
