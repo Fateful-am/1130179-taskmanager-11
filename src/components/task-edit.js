@@ -5,6 +5,15 @@ import flatpickr from "flatpickr";
 
 import "flatpickr/dist/flatpickr.min.css";
 
+const MIN_DESCRIPTION_LENGTH = 1;
+const MAX_DESCRIPTION_LENGTH = 140;
+
+const isAllowableDescriptionLength = (description) => {
+  const length = description.length;
+
+  return length >= MIN_DESCRIPTION_LENGTH &&
+    length <= MAX_DESCRIPTION_LENGTH;
+};
 
 const parseFormData = (formData) => {
   const repeatingDays = DAYS.reduce((acc, day) => {
@@ -35,6 +44,7 @@ export default class TaskEdit extends AbstractSmartComponent {
     this._isDateShowing = !!task.dueDate;
     this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
+    this._currentDescription = task.description;
     this._flatpickr = null;
     this._color = task.color;
 
@@ -89,13 +99,15 @@ export default class TaskEdit extends AbstractSmartComponent {
   }
 
   getTemplate() {
-    const {description, dueDate} = this._task;
+    const {dueDate} = this._task;
+    const description = this._currentDescription;
 
     const color = this._color;
     const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
 
     const isBlockSaveButton = (this._isDateShowing && this._isRepeatingTask) ||
-      (this._isRepeatingTask && !isRepeating(this._activeRepeatingDays));
+      (this._isRepeatingTask && !isRepeating(this._activeRepeatingDays)) ||
+      !isAllowableDescriptionLength(description);
 
     const date = (this._isDateShowing && dueDate) ? formatDate(dueDate) : ``;
     const time = (this._isDateShowing && dueDate) ? formatTime(dueDate) : ``;
@@ -209,6 +221,7 @@ export default class TaskEdit extends AbstractSmartComponent {
     this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
     this._color = task.color;
+    this._currentDescription = task.description;
 
     this.rerender();
   }
@@ -229,6 +242,14 @@ export default class TaskEdit extends AbstractSmartComponent {
 
   _subscribeOnEvents() {
     const element = this.getElement();
+
+    element.querySelector(`.card__text`)
+      .addEventListener(`input`, (evt) => {
+        this._currentDescription = evt.target.value;
+
+        const saveButton = this.getElement().querySelector(`.card__save`);
+        saveButton.disabled = !isAllowableDescriptionLength(this._currentDescription);
+      });
 
     element.querySelector(`.card__date-deadline-toggle`)
       .addEventListener(`click`, () => {
