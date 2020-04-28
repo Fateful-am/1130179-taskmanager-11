@@ -2,6 +2,7 @@ import {COLORS, DAYS} from "../const.js";
 import AbstractSmartComponent from "./abstract-smart-component.js";
 import {formatTime, formatDate, isRepeating, isOverdueDate} from "../utils/common.js";
 import flatpickr from "flatpickr";
+import {encode} from "he";
 
 import "flatpickr/dist/flatpickr.min.css";
 
@@ -100,7 +101,7 @@ export default class TaskEdit extends AbstractSmartComponent {
 
   getTemplate() {
     const {dueDate} = this._task;
-    const description = this._currentDescription;
+    const description = encode(this._currentDescription);
 
     const color = this._color;
     const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
