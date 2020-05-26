@@ -1,17 +1,8 @@
-/**
- * Константы для вставки DOM-элементов
- * @type {{BEFOREEND: InsertPosition, AFTERBEGIN: InsertPosition}}
- */
 export const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
 };
 
-/**
- * Генерация DOM-элемента на основе шаблона
- * @param {String} template - Шаблон элемента
- * @return {Element} - DOM-элемент
- */
 export const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
@@ -19,12 +10,6 @@ export const createElement = (template) => {
   return newElement.firstChild;
 };
 
-/**
- * Отрисовка элемнта в контейнере
- * @param {Element} container - Контейнер для элемента
- * @param {AbstractComponent} component - Компонент для отрисовки
- * @param {InsertPosition} place - Место вставки элемента в контейнер
- */
 export const render = (container, component, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
@@ -36,11 +21,6 @@ export const render = (container, component, place) => {
   }
 };
 
-/**
- * Заменяет один элемент на другой в родительском контейнере
- * @param {AbstractComponent} newComponent - Новый элемент
- * @param {AbstractComponent} oldComponent - Старый элемент
- */
 export const replace = (newComponent, oldComponent) => {
   const parentElement = oldComponent.getElement().parentElement;
   const newElement = newComponent.getElement();
@@ -53,10 +33,6 @@ export const replace = (newComponent, oldComponent) => {
   }
 };
 
-/**
- * Удаляет элемент из разметки
- * @param {AbstractComponent} component - Компонент для удаления
- */
 export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();

@@ -1,6 +1,7 @@
 import {getTasksByFilter} from "../utils/filter.js";
 import {FilterType} from "../const.js";
 
+
 export default class Tasks {
   constructor() {
     this._tasks = [];
