@@ -6,12 +6,9 @@ export const MenuItem = {
   TASKS: `control__task`,
 };
 
-/** Компонент главного меню сайта
- * @extends AbstractComponent
- */
-export default class SiteMenu extends AbstractComponent {
-  getTemplate() {
-    return `<section class="control__btn-wrap">
+const createSiteMenuTemplate = () => {
+  return (
+    `<section class="control__btn-wrap">
       <input
         type="radio"
         name="control"
@@ -38,7 +35,13 @@ export default class SiteMenu extends AbstractComponent {
       <label for="control__statistic" class="control__label"
         >STATISTICS</label
       >
-    </section>`;
+    </section>`
+  );
+};
+
+export default class SiteMenu extends AbstractComponent {
+  getTemplate() {
+    return createSiteMenuTemplate();
   }
 
   setActiveItem(menuItem) {

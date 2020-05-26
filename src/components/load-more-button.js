@@ -1,17 +1,16 @@
 import AbstractComponent from "./abstract-component.js";
 
-/** Компонент кнопки "Load More"
- * @extends AbstractComponent
- */
+const createLoadMoreButtonTemplate = () => {
+  return (
+    `<button class="load-more" type="button">load more</button>`
+  );
+};
+
 export default class LoadMoreButton extends AbstractComponent {
   getTemplate() {
-    return `<button class="load-more" type="button">load more</button>`;
+    return createLoadMoreButtonTemplate();
   }
 
-  /**
-   * Подписка кнопки на клик
-   * @param {function} handler - Обработчик клика по кнопке
-   */
   setClickHandler(handler) {
     this.getElement().addEventListener(`click`, handler);
   }

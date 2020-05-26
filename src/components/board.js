@@ -1,12 +1,15 @@
 import AbstractComponent from "./abstract-component.js";
 
-/** Компонент доски объявлений
- * @extends AbstractComponent
- */
+
+const createBoardTemplate = () => {
+  return (
+    `<section class="board container"></section>`
+  );
+};
+
+
 export default class Board extends AbstractComponent {
   getTemplate() {
-    return (
-      `<section class="board container"></section>`
-    );
+    return createBoardTemplate();
   }
 }
