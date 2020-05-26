@@ -7,7 +7,7 @@ import StatisticsComponent from "./components/statistics.js";
 import TasksModel from "./models/tasks.js";
 import {render, RenderPosition} from "./utils/render.js";
 
-const AUTHORIZATION = `Basic dXNlckBwYXNzd29yZAo=`;
+const AUTHORIZATION = `Basic dXNlckByYXNzd29yZAo=`;
 
 const dateTo = new Date();
 const dateFrom = (() => {
